@@ -82,8 +82,10 @@ class FirebaseLib implements FirebaseInterface
     {
         $url = $this->_baseURI;
         $path = ltrim($path, '/');
-        $auth = ($this->_token == '') ? '' : '?auth=' . $this->_token;
-        return $url . $path . '.json' . $auth;
+        $qaToken = (strpos($path, '?') == FALSE) ? '?' : '&';
+        $auth = ($this->_token == '') ? '' : $qaToken . 'auth=' . $this->_token;
+        $incJSON = (strpos($path, '.json') == FALSE) ? '.json' : '';
+        return $url . $path . $incJSON . $auth;
     }
 
     /**
